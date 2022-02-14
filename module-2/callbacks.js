@@ -1,10 +1,15 @@
 // this is again a IIFE function which will execute immediately
-(function(window, document){
+(async function(window, document){
 
 window.addEventListener('load', loaded)
+
 function loaded(e){
     var click = document.getElementById('click-me');
-    click.addEventListener('click', callback)   
+    // console.log(click)
+    // click.addEventListener('click', function (e) {
+    //     alert()
+    // })   
+    // click.addEventListener('click', callback)   
 }
 // what is a callback?
 // it is a function which need to pass into another function as argument, it can be arrow function, function expression or higher order 
@@ -36,36 +41,38 @@ function loaded(e){
 // }
 
 // with callback
-function callback(e){
-    getUserData(renderData);
-}
+// function callback(e){
+//     getUserData(renderData);
+// }
 
 
-function renderData(data){
-    var container = document.getElementById('render-data');
-    const ul = document.createElement('ul');
-    for (const key in data) {
-        if (Object.hasOwnProperty.call(data, key)) {
-            const element = data[key];
-            const li = document.createElement('ul');
-            li.innerHTML = element.name;
-            li.id = element.id;
-            ul.append(li);
-        }
-    }
-    container.classList.remove('hide-me');
-    container.classList.add('show-me');
-    container.appendChild(ul);
-}
+// callBack Hello
+
+// function renderData(data){
+//     var container = document.getElementById('render-data');
+//     const ul = document.createElement('ul');
+//     for (const key in data) {
+//         if (Object.hasOwnProperty.call(data, key)) {
+//             const element = data[key];
+//             const li = document.createElement('ul');
+//             li.innerHTML = element.name;
+//             li.id = element.id;
+//             ul.append(li);
+//         }
+//     }
+//     container.classList.remove('hide-me');
+//     container.classList.add('show-me');
+//     container.appendChild(ul);
+// }
 
 // this code is handled by callback
-function getUserData(cb){
-    // suppose this is a DB request to fetch the data so this piece code will be a asynchronous type code
-    // it will take time so i addded settimeout for demonstrating the scenario
-    setTimeout(function(){
-        cb([{name:"XYZ", id:1},{name:"ABC", id:2},{name:"PQR", id:3}])
-    }, 2000)
-}
+// function getUserData(cb){
+//     // suppose this is a DB request to fetch the data so this piece code will be a asynchronous type code
+//     // it will take time so i addded settimeout for demonstrating the scenario
+//     setTimeout(function(){
+//         cb([{name:"XYZ", id:1},{name:"ABC", id:2},{name:"PQR", id:3}])
+//     }, 2000)
+// }
 
 // without callback
 // function getUserData(){
@@ -74,8 +81,19 @@ function getUserData(cb){
 //     setTimeout(function(){
 //        return [{name:"XYZ", id:1},{name:"ABC", id:2},{name:"PQR", id:3}]
 //     }, 20000)
+//     console.log('sdkfdjsk')
 // }
 
+    // function callApi(cb) {
+    //     var api = 'http://localhost:3000/api/v1/user/all?offset=0';
+    //     fetch(api).then(data=>{
+    //         cb(data)
+    //     })
+    // }
+
+    // callApi((data)=>{
+    //     console.log(data)
+    // })
 
     // promises
     // promise is a function which is used to be resolve or resect
@@ -92,27 +110,101 @@ function getUserData(cb){
     });
 
     let op = Promise.resolve(promise);
-    op.then(()=>{console.log("Hello");})
+    op.then(()=>{
+        // console.log("Hello");
+    })
     // console.log(op)
+
+    // function toValidNumber(num){
+    //     return new Promise((res, rej)=>{
+    //         if(num > 0) {
+    //             res(true)
+    //         } else {
+    //             rej(false)
+    //         }
+    //     })
+    // }
+
+    // console.log()
+
+    // toValidNumber(-1).then((isValid)=>{
+    //     console.log(isValid)
+    // }).catch((e)=>{
+    //     console.log(e)
+    // })
+
 
     function promiseFunction(){}
 
 
-    function fetchUsers(cb) {
-        // calling the api using fetch method
+    // function fetchUsers(cb) {
+    //     // calling the api using fetch method
+    //     const users = fetch('http://localhost:3000/api/v1/user/all?offset=0');
+    //     users.then((response)=>{
+    //         return response.json()
+    //     }).then((data)=>{
+    //         cb(data)
+    //     })
+    // }
+
+    // fetchUsers((data)=>{
+    //     // console.log(data)
+    // })
+
+
+    function fetchUsers(){
         const users = fetch('http://localhost:3000/api/v1/user/all?offset=0');
-        users.then((response)=>{
-            return response.json()
-        }).then((data)=>{
-            cb(data)
+        return new Promise((resolve, reject)=>{
+            users
+                .then((response)=>{
+                    resolve(response)
+                })
+                .then((data)=>{
+                    return data
+                })
         })
     }
 
-    fetchUsers((data)=>{
-        console.log(data)
-    })
+    fetchUsers()
+        .then((users)=>{
+            return users.json();
+        })
+        .then((users)=>{
+            doSomeTask(users);
+        })
+
+        function doSomeTask(data) {
+            // console.log(data)
+        }
 
 
+    // Async/await
+    async function fetchApi(){
+        const users = fetch('http://localhost:3000/api/v1/user/all?offset=0');
+        return new Promise((res, rej) => {
+            users
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                res(data)
+            })
+        })
+    } 
+
+    // fetchApi().then(users=>console.log(users))
+    // console.log(b)
+
+    // async function x(){
+    //     async function y(){
+    //         return 'Hi'
+    //     }
+    //     var c = await y()
+    // }
+
+    // x()
+
+    
 
 })(window, document)
 

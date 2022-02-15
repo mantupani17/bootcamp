@@ -25,17 +25,18 @@ function User(){
 }
 
 function Student(name, id){
-    User.call(name, id)
+    this.name = name;
+    this.id = id;
+    User.call(this, name, id)
 }
 
-// Student.prototype = Object.assign(User.prototype);
+Student.prototype = new User();
 
-// const stu1 = new Student('Mantu', '2')
-// stu1.showDetails();
-
-
+const stu1 = new Student('Mantu', '2')
+stu1.showDetails();
 
 class UserClass{
+    // constructor(name, id)
     showDetails(){
         console.log('id: '+this.id+' Name '+ this.name +"")
     }
@@ -44,6 +45,8 @@ class UserClass{
 class StudentClass extends UserClass{
     constructor(name, id){
         super(name, id)
+        this.name = name;
+        this.id = id;
     }
 }
 
@@ -53,18 +56,18 @@ stu.showDetails()
 // Map
 // curry functions/closure
 
-function sum(a){
-    return function(b){
-        return function(c){
-            return a+b+c;
-        }
-    }
-}
+// function sum(a){
+//     return function(b){
+//         return function(c){
+//             return a+b+c;
+//         }
+//     }
+// }
 
-console.log(sum(2)(3)(4))
-var x = sum(2)
-var y = x(3)
-var result = y(5);
+// console.log(sum(2)(3)(4))
+// var x = sum(2)
+// var y = x(3)
+// var result = y(5);
 
 
 

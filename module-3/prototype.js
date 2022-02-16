@@ -50,8 +50,12 @@ class StudentClass extends UserClass{
     }
 }
 
+StudentClass.prototype.showName = function(){
+    console.log(this.name);
+}
+
 const stu = new StudentClass('Mantu', '1');
-stu.showDetails()
+stu.showName()
 
 // Map
 // curry functions/closure

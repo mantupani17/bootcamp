@@ -8,7 +8,7 @@
                 return response.json()
             })
             .then((users)=>{
-                console.log(users)
+                // console.log(users)
             })
     }
 

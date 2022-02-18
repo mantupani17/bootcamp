@@ -1,5 +1,5 @@
-(function(window, document){
-    this.x = 'hello';
+(function(){
+    // this.x = 'hello';
     function User(){
         this.getUserDetails = function() {
             // console.log(`Id - ${this.id} | Name - ${this.name}`);
@@ -22,7 +22,7 @@
     var emp = new Employee(1, 'Mantu');
     this.student = stu.getUserDetails()
     this.employee = emp.getUserDetails()
-
+    
     // function mainFunction(cb){
     //     console.log(this.x)
     //     cb()
@@ -35,22 +35,33 @@
     window.addEventListener('load', function(e){
         var clickBtn = document.getElementById('click-me');
         clickBtn.addEventListener('click', function(e){
-            console.log(this.student)
-            console.log(this.employee)
+            callClick.apply(this, [1, 2, 3, 4])   
         }.bind(this))
     })
 
+    function callClick(...args){
+        console.log(args)
+        console.log(this.employee)
+    }
     
-})(window, document)
+})()
 
-
+// var that = this;
 this.x = 10;
+this.y = 20
+
+// var checkBind = () =>{
+//     console.log(this.x)
+//     console.log(this.y)
+// }
+
 function checkBind(){
     console.log(this.x)
+    console.log(this.y)
 }
 // console.log(this.x)
-// const callCheckBindMethod = checkBind.bind(this)
-// callCheckBindMethod();
+const callCheckBindMethod = checkBind.bind(this)
+callCheckBindMethod();
 // checkBind()
 
 

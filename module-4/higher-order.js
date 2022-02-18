@@ -58,13 +58,13 @@ const originalFunc = (num) => { return num + 2 };
  
 //Re-assign the function to a new variable newFunc
 const newFunc = originalFunc;
- 
+
 //Access the function's name property
 newFunc.name; //'originalFunc'
  
 //Return the function's body as a string
 newFunc.toString(); //'(num) => { return num + 2 }'
- 
+
 //Add our own isMathFunction property to the function
 newFunc.isMathFunction = true;
  
@@ -85,7 +85,7 @@ is the current element. Optionally, a second argument can be passed which acts a
 value of the accumulator.Here, the .reduce() method will sum all the elements of the array.
  */
 const arrayOfNumbers = [1, 2, 3, 4];
- 
+//  0, null
 const sum = arrayOfNumbers.reduce((accumulator, currentValue) => {  
   return accumulator + currentValue;
 });
@@ -127,3 +127,24 @@ const announcements = finalParticipants.map(member => {
 })
  
 console.log(announcements);
+
+function userData(cb){
+  cb({id:1, name:'mantu'})
+}
+
+function getUserDetails(id, cb){
+  cb({id:1, name:'mantu'})
+}
+
+function getUserMarkDetails(id, cb){
+  cb({id:1, name:'mantu'})
+}
+
+var callGetUserMarkDetails = function(user){}
+var callGetUserDetails = function(user){
+  getUserMarkDetails(user.id, callGetUserMarkDetails);
+}
+var callUserData = function(user){ getUserDetails(user.id, callGetUserDetails) }
+
+userData(callUserData)
+

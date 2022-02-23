@@ -1,0 +1,4 @@
+micro-services/main/node_modules
+micro-services/service1/node_modules
+micro-services/service2/node_modules
+micro-services/service3/node_modules

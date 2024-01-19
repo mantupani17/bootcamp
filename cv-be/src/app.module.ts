@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer } from '@nestjs/common';
+import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppConfigModule } from './app-config/app-config.module';
@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import configuration from './utils/configuration';
+import { AuthMiddleware } from './middlewares/auth.middleware';
 
 @Module({
   imports: [
@@ -36,5 +37,9 @@ import configuration from './utils/configuration';
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(RequestLoggerMiddleware).forRoutes('*');
+    consumer.apply(AuthMiddleware).exclude(
+      {path: '/auth/register', method:RequestMethod.POST},
+      {path: '/auth/login', method:RequestMethod.POST}
+    ).forRoutes({path:"*", method: RequestMethod.ALL})
   }
 }

@@ -13,14 +13,15 @@ export const Education = (props) =>{
         labels: [],
         datasets: []
     }) 
-    const data = props?.details ? props.details.educations : [];
-    const bardata = props?.details ? props.details.exeperiences : [];
-    const labels = data.map((d) => d.year)
-    const labelData = data.map(d => d.value)
-    const barLabels = bardata.map((d) => d.year)
-    const barLabelData = bardata.map((d) => d.value)
+    
     useEffect(()=>{
-        const config = {
+        const data = props?.details ? props.details.educations : [];
+        const bardata = props?.details ? props.details.exeperiences : [];
+        const labels = data.map((d) => d.year)
+        const labelData = data.map(d => d.value)
+        const barLabels = bardata.map((d) => d.year)
+        const barLabelData = bardata.map((d) => d.value)
+        setChartConfig({
             labels: labels,
             datasets: [
                 {
@@ -29,8 +30,7 @@ export const Education = (props) =>{
                     data: labelData
                 }
             ]
-        };
-        setChartConfig(config)
+        })
         setBarChartConfig({
             labels: barLabels,
             datasets: [
@@ -41,7 +41,7 @@ export const Education = (props) =>{
                 }
             ]
         })
-    },[])
+    },[props?.details])
     return (
         <Row className='profile-details' align={'middle'}>
             <Col span={12}>

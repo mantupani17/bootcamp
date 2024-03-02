@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
 import { Education } from './charts/education';
 import { AuthContext } from '../../context';
+
 export const DashBoard = () =>{   
     const isAuthenticated = window.localStorage.getItem('isAuthenticated')
     if (isAuthenticated != 'true') {

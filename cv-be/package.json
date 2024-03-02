@@ -27,6 +27,8 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mongoose": "^10.0.2",
     "@nestjs/platform-express": "^9.0.0",
+    "aws-jwt-verify": "^4.0.1",
+    "aws-sdk": "^2.1569.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
     "nest-winston": "^1.9.4",
@@ -34,6 +36,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "winston": "^3.11.0",
+    "winston-cloudwatch": "^6.2.0",
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {

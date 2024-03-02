@@ -28,6 +28,9 @@ export class User {
 
   @Prop({ default: Date.now() })
   updatedAt?: Date;
+
+  @Prop({default: 0})
+  status: number
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

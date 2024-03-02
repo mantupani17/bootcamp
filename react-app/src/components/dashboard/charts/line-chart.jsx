@@ -9,7 +9,7 @@ export function LineChart({ chartData }) {
             plugins: {
               title: {
                 display: true,
-                text: "Education Career 10th-MCA"
+                text: "Education Overview"
               },
               legend: {
                 display: false

@@ -8,11 +8,7 @@ export const AuthServices = {
         return axiosInstance.post('api/auth/login', data)
     },
 
-    profile: async (token) => {
-        return axiosInstance.get('api/auth/profile', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+    profile: async () => {
+        return axiosInstance.get('api/auth/profile', {})
     }
 }

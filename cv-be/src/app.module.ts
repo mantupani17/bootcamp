@@ -10,6 +10,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import configuration from './utils/configuration';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { UserModule } from './user/user.module';
+import { CognitoGroupModule } from './cognito-group/cognito-group.module';
 
 @Module({
   imports: [
@@ -29,7 +31,9 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
     }),
     AppConfigModule,
     DatabaseModule,
-    AuthModule
+    AuthModule,
+    UserModule,
+    CognitoGroupModule
   ],
   controllers: [AppController],
   providers: [AppService, UtilsService],
@@ -39,7 +43,8 @@ export class AppModule {
     consumer.apply(RequestLoggerMiddleware).forRoutes('*');
     consumer.apply(AuthMiddleware).exclude(
       {path: '/auth/register', method:RequestMethod.POST},
-      {path: '/auth/login', method:RequestMethod.POST}
+      {path: '/auth/login', method:RequestMethod.POST},
+      {path: '/app-config/menulist', method:RequestMethod.GET}
     ).forRoutes({path:"*", method: RequestMethod.ALL})
   }
 }
